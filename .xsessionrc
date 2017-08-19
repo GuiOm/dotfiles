@@ -1,0 +1,5 @@
+# Désactive écran de veille, mise en veille
+xset dpms 0 0 0
+xset s off
+xset -dpms
+xset -b
