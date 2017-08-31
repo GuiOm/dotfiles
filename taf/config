@@ -163,7 +163,7 @@ exec_always --no-startup-id numlockx on
 exec_always --no-startup-id feh --bg-scale /home/guillaume/Images/wallpapers/Trazo_solitario.jpg
 
 # i3lock
-bindsym Control+Mod1+Delete exec ~/.config/i3/i3lock-extra.sh -d /tmp -s -p -g
+bindsym Control+Mod1+Delete exec ~/.config/i3/i3lock-extra.sh -d /tmp -o /home/guillaume/Images/fsociety2.jpg -s -p -g -x 1860 -y 700
 
 # Initialize workspaces
 exec --no-startup-id "i3-msg ' RSS; append_layout /home/guillaume/.config/i3/workspaces/workspace1_rss_conv.json'"
