@@ -19,6 +19,8 @@ usage() {
 		        # Modifiers (apply to both screenshots and specified images):
 		        --overlay-image|-o              Overlay another image over the main one.
 		                                          Gets applied after all other modifiers.
+                -x                              Position of overlay image
+                -y                              Position of overlay image
 		        --grayscale|-g                  Make the image grayscale.
 		        --pixelize|-p                   Pixelize the image.
 		        --pixelize-scale|-P             Sets the number by which the image is resized down and up
@@ -56,8 +58,10 @@ image_prepare() {
 		convert "$image_file" "${convert_args[@]}" "$cfg_tmpdir/lockbg.png"
 		image_file="$cfg_tmpdir/lockbg.png"
 	fi
-	
-	if [[ "$overlay_image" ]]; then
+
+	if [ -f "$overlay_image" -a "$x" -a "$y" ]; then
+		convert -geometry +$x+$y -composite -matte "$image_file" "$overlay_image" "$cfg_tmpdir/lockbg.png"
+    elif [ -f "$overlay_image" ]; then
 		convert -gravity center -composite -matte "$image_file" "$overlay_image" "$cfg_tmpdir/lockbg.png"
 		image_file="$cfg_tmpdir/lockbg.png"
 	fi
@@ -77,6 +81,8 @@ main() {
 			--umask|-u) umask "$2"; shift;;
 			--image-file|-i) image_file=$2; shift;;
 			--overlay-image|-o) overlay_image=$2; shift;;
+            -x) x=$2; shift;;
+            -y) y=$2; shift;;
 
 			--screenshot|-s) f_screenshot=1;;
 			--grayscale|-g) f_grayscale=1;;
