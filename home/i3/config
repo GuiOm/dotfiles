@@ -162,7 +162,8 @@ bar {
 }
 
 # Wallpaper
-exec --no-startup-id feh --bg-scale ~/Images/wallpaper/Raid_des_Hautes_Fagnes_Malmedy_Copyright_OBeart_VojoMag-16.jpg
+#exec --no-startup-id feh --bg-scale ~/Images/wallpaper/Raid_des_Hautes_Fagnes_Malmedy_Copyright_OBeart_VojoMag-16.jpg
+exec_always --no-startup-id feh --bg-scale ~/Images/wallpaper/mountains.jpg
 
 # Numlock at boot
 exec_always --no-startup-id numlockx on
