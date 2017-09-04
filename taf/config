@@ -33,7 +33,7 @@ floating_modifier $mod
 bindsym $mod+Return exec i3-sensible-terminal
 
 # kill focused window
-bindsym $mod+Shift+a kill
+bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec dmenu_run
@@ -87,30 +87,38 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 
 # focus the parent container
-bindsym $mod+q focus parent
+bindsym $mod+a focus parent
 
 # focus the child container
 #bindsym $mod+d focus child
 
+# Set workspace variable
+set $workspace1 " Veille"
+set $workspace2 " Code"
+set $workspace3 " Wireshark"
+set $workspace4 " Mail"
+set $workspace5 " Net"
+set $workspace6 " VBox"
+
 # switch to workspace
-bindsym $mod+ampersand workspace 1
-bindsym $mod+eacute workspace 2
-bindsym $mod+quotedbl workspace 3
-bindsym $mod+apostrophe workspace 4
-bindsym $mod+parenleft workspace 5
-bindsym $mod+minus workspace 6
+bindsym $mod+ampersand workspace $workspace1
+bindsym $mod+eacute workspace $workspace2
+bindsym $mod+quotedbl workspace $workspace3
+bindsym $mod+apostrophe workspace $workspace4
+bindsym $mod+parenleft workspace $workspace5
+bindsym $mod+minus workspace $workspace6
 bindsym $mod+egrave workspace 7
 bindsym $mod+underscore workspace 8
 bindsym $mod+ccedilla workspace 9
 bindsym $mod+agrave workspace 10
 
 # move focused container to workspace
-bindsym $mod+Shift+ampersand move container to workspace 1
-bindsym $mod+Shift+eacute move container to workspace 2
-bindsym $mod+Shift+quotedbl move container to workspace 3
-bindsym $mod+Shift+apostrophe move container to workspace 4
-bindsym $mod+Shift+5 move container to workspace 5
-bindsym $mod+Shift+minus move container to workspace 6
+bindsym $mod+Shift+ampersand move container to workspace $workspace1
+bindsym $mod+Shift+eacute move container to workspace $workspace2
+bindsym $mod+Shift+quotedbl move container to workspace $workspace3
+bindsym $mod+Shift+apostrophe move container to workspace $workspace4
+bindsym $mod+Shift+5 move container to workspace $workspace5
+bindsym $mod+Shift+minus move container to workspace $workspace6
 bindsym $mod+Shift+egrave move container to workspace 7
 bindsym $mod+Shift+underscore move container to workspace 8
 bindsym $mod+Shift+ccedilla move container to workspace 9
@@ -121,7 +129,7 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -153,19 +161,27 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 bar {
         status_command i3status --config ~/.config/i3/i3status.conf
-        position top
+        position bottom
 }
 
 # Numlock at boot
 exec_always --no-startup-id numlockx on
 
 # Wallpaper
-exec_always --no-startup-id feh --bg-scale /home/guillaume/Images/wallpapers/Trazo_solitario.jpg
+exec --no-startup-id nitrogen --restore
 
 # i3lock
 bindsym Control+Mod1+Delete exec ~/.config/i3/i3lock-extra.sh -d /tmp -o /home/guillaume/Images/fsociety2.jpg -s -p -g -x 1860 -y 700
 
 # Initialize workspaces
-exec --no-startup-id "i3-msg ' RSS; append_layout /home/guillaume/.config/i3/workspaces/workspace1_rss_conv.json'"
-exec --no-startup-id "i3-msg ' Mail; append_layout /home/guillaume/.config/i3/workspaces/workspace2_mail.json'"
-exec --no-startup-id "i3-msg ' Dev; append_layout /home/guillaume/.config/i3/workspaces/workspace3_console.json'"
+workspace $workspace1 output DP-1
+workspace $workspace2 output DP-1
+workspace $workspace3 output DP-1
+workspace $workspace4 output DP-2
+workspace $workspace5 output DP-2
+workspace $workspace6 output DP-2
+
+# dropdown terminal
+exec --no-startup-id i3-sensible-terminal -title ddterm
+for_window [title="ddterm"] move scratchpad;
+bindsym $mod+c [title="ddterm"] scratchpad show
