@@ -1,0 +1,1 @@
+git clone https://github.com/horst3180/arc-icon-theme --depth 1 && cd arc-icon-theme && mv Arc ~/.icons
